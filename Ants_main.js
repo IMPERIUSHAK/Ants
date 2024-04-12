@@ -1,12 +1,4 @@
-let block = document.getElementById('plank');
-let point = document.getElementById('circle');
-let range = document.getElementById('range');
-let submit = document.getElementById('submt');
-let rangeVal = document.getElementById('rangeVal')
-let arr = [];
-let bestPath = [];
-let bestDistance =[];
-rangeVal.innerHTML = range.value;
+
 function slider(upt, set_upt,key) {
     upt.addEventListener('input', function() {
         if(key>=1){
@@ -17,10 +9,6 @@ function slider(upt, set_upt,key) {
     });
 }
 
-slider(range,rangeVal,1);
-//обновление ферамонов
-let update = document.getElementById('update');
-let set_update = document.getElementById('set_update');
 slider(update, set_update,1);
 //вес расстояний
 let Beta = document.getElementById('beta');
@@ -36,53 +24,36 @@ let set_count = document.getElementById('set_count');
 slider(Count,set_count,1);
 
 
-class Coords {
-    constructor(x, y) {
-        this.x = Math.min(Math.max(x, 10), 295);
-        this.y = Math.min(Math.max(y, 10), 295);
-    }
-}
-let dots = new Coords(0, 0);
 function mouseMove(event) {
-   
-    let x = event.clientX - (point.offsetWidth / 2);
-    let y = event.clientY - (point.offsetHeight / 2);
-
-
-    dots = new Coords(x, y);
-
-  
-    arr.push([dots.x, dots.y]);
-
-    let clone = point.cloneNode(true);
-    setCoords(dots.x, dots.y, clone);
-    block.appendChild(clone);
-
+    let rect = block.getBoundingClientRect();
+    let x = event.clientX - rect.left;
+    let y = event.clientY - rect.top;
+    arr.push([x, y]);
+    generate_circle(x, y);
 }
+
 block.addEventListener('click', function(event) {
     if (event.target === block) {
         mouseMove(event);
     }
 });
 
-document.addEventListener('mousedown', function(event) {
-    if (event.target === block) {
-        document.addEventListener('mousemove', mouseMove);
-    }
-});
+// document.addEventListener('mousedown', function(event) {
+//     if (event.target === block) {
+//         document.addEventListener('mousemove', mouseMove);
+//     }
+// });
 
-document.addEventListener('mouseup', function(event) {
-    document.removeEventListener('mousemove', mouseMove);
-});
+// document.addEventListener('mouseup', function(event) {
+//     document.removeEventListener('mousemove', mouseMove);
+// });
 
 
 submit.addEventListener('click',function(event){
-    ants_algor(arr);
-    draw_lines(bestPath,arr);
-    console.log('успешно');
+    run_ants_algor(arr);
 });
 
-function ants_algor(arr){
+function run_ants_algor(arr){
     let distances = find_dist(arr);
     let numCities = distances.length; // Количество городов
     let alpha = 1.0;
@@ -95,12 +66,6 @@ function ants_algor(arr){
 
     
     antColony.run(count);
-
     // Получение лучшего найденного пути и его длины
-     bestPath = antColony.get_best_path();
-     bestDistance = antColony.get_best_distance();
-    
-    // Вывод результатов
-    //console.log("Best path:", bestPath.join(" "));
-    //console.log("Best distance:", bestDistance);
+    bestDistance = antColony.get_best_distance();
 }
