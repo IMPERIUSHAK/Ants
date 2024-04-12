@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="antstyle.css">
+</head>
+<body>
+    <div id="desk">
+    <div id="plank">
+    <div id='circle'></div>
+    <div id="line"></div>
+    </div>
+    <span><br>Выбрать разммер кисти</span><input name = "range-in" type="range" min="7" max="50" id="range" value="10"><label id="rangeVal">10</label>
+    </div>
+   
+    <span><br>параметр обновления ферамонов</span><input name = "update pheromone" type="range" min="1" max="50" id="update" value="8"><label id="set_update">8</label>
+    <span><br>укажите вес расстояния</span><input name = "beta" type="range" min="1" max="10" id="beta" value="2"><label id="set_beta">2</label>
+    <span><br>скорость испарения ферамонов</span><input name = "speed" type="range" min="1" max="9" id="speed" value="2"><label id="set_speed">0.2</label>
+    <span><br>скорость испарения ферамонов</span><input name = "count" type="range" min="1000" max="9000" id="count" value="7000"><label id="set_count">7000</label>
+    <input type="submit" name="submit" value="готово" id="submt">
+   
+    <script type="text/javascript" src="AntsAlgor.js"></script>
+    <script type="text/javascript" src="Antsdraw.js"></script>
+    <script type="text/javascript" src="Ants_main.js"></script>
+</body>
+</html>
